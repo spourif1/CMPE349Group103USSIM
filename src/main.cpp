@@ -38,17 +38,17 @@ void setup() {
 
 void loop() { // assumption that only one function runs at a time
   if(digitalRead(txex_pin) == HIGH){ // if transmission enable is on, start trying to read the other pins
-    if(digitalRead(dpsk_pin) == HIGH){
-      dpskInterval = millis();
-      dpskFunction(dpskInterval);
+    if(digitalRead(dpsk_pin) == HIGH){ // check to see if DPSK turned high
+      dpskInterval = millis(); // if so, grab the current run time
+      dpskFunction(dpskInterval); // and do the dpsk operation
     }
     if(digitalRead(antselrd_pin) == HIGH){
       antselrdInterval == millis();
       antselrdFunction();
     }
 
-    if(digitalRead(tofro_pin) == HIGH){
-      tofroFunction();
+    if(digitalRead(tofro_pin) == HIGH){ // if the tofro pin fro utcu is high
+      tofroFunction(); // run the tofro function
     }
 
 
@@ -58,12 +58,12 @@ void loop() { // assumption that only one function runs at a time
 
 
 void dpskFunction(int time){
-  int dpskInterval = 500; // time to read dpsk in milliseconds
-  while( (millis() - time) < dpskInterval){
-    if(digitalRead(dpsk_pin == HIGH)){
-      // DO SOMETHING TO THE MODULATOR PIN
+  int dpskInterval = 500; // time to read dpsk in milliseconds, this is set by USSIM and can be anything.
+  while( (millis() - time) < dpskInterval){ // check to see if the current time minus the captured time when DPSK is ran is less than the interval
+    if(digitalRead(dpsk_pin == HIGH)){ // if still under the interval time, manipulate the sine wave
+      // DO SOMETHING TO THE MODULATOR PIN // by manipulating the modulator pin voltage
     }
-  } // when this while statement ends, dpsk is done being checked to change the output
+  } // when this while loop ends, this function exits and loop is continued to be checked.
 }
 
 void antselrdFunction(){
@@ -77,6 +77,7 @@ void tofroFunction(){
   // this is where you do your amplitude modulation based on the formula given by laberge.
   // just adjust the voltage of the output pin specified earlier
   // dpskmodulator_pin is the thing you want to manipulate the output voltage
+  
 }
 
 
